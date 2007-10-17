@@ -42,7 +42,7 @@ class tx_damactedittxt_modfunc1 extends t3lib_extobjbase {
 	 * @return	boolean Return true if access is granted
 	 */
 	function accessCheck() {
-		return tx_dam::access_checkAction('editFile');
+		return tx_dam::access_checkFileOperation('editFile');
 	}
 
 
