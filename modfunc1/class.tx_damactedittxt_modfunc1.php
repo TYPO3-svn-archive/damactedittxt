@@ -2,7 +2,7 @@
 /***************************************************************
 *  Copyright notice
 *
-*  (c) 2006 René Fritz <r.fritz@colorcube.de>
+*  (c) 2006 Rene Fritz <r.fritz@colorcube.de>
 *  All rights reserved
 *
 *  This script is part of the TYPO3 project. The TYPO3 project is
@@ -24,7 +24,7 @@
 /**
  * Module extension (addition to function menu) 'Edit File' for the 'dam_act_edittxt' extension.
  *
- * @author	René Fritz <r.fritz@colorcube.de>
+ * @author	Rene Fritz <r.fritz@colorcube.de>
  */
 
 
@@ -62,7 +62,7 @@ class tx_damactedittxt_modfunc1 extends t3lib_extobjbase {
 	 * @return	string HTML
 	 */
 	function getContextHelp() {
-// TODO csh
+#TODO csh
 #		return t3lib_BEfunc::cshItem('xMOD_csh_corebe', 'file_rename', $GLOBALS['BACK_PATH'],'');
 	}
 

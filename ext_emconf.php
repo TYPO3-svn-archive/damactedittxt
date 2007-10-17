@@ -14,10 +14,10 @@ $EM_CONF[$_EXTKEY] = array(
 	'title' => 'Media: Edit text files',
 	'description' => 'Add an action to the DAM for editing text files.',
 	'category' => 'be',
-	'author' => 'René Fritz',
+	'author' => 'Rene Fritz',
 	'author_email' => 'r.fritz@colorcube.de',
 	'shy' => '',
-	'dependencies' => '',
+	'dependencies' => 'dam',
 	'conflicts' => '',
 	'priority' => '',
 	'module' => '',
@@ -32,6 +32,7 @@ $EM_CONF[$_EXTKEY] = array(
 	'version' => '0.0.0',
 	'constraints' => array(
 		'depends' => array(
+			'dam' => '',
 		),
 		'conflicts' => array(
 		),

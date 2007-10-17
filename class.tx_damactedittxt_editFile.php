@@ -33,6 +33,16 @@
  *
  *
  *
+ *   61: class tx_damactedittxt_editFile extends tx_dam_actionbase
+ *   84:     function isPossiblyValid ($type, $itemInfo=NULL, $env=NULL)
+ *  100:     function isValid ($type, $itemInfo=NULL, $env=NULL)
+ *  118:     function getIcon ($addAttribute='')
+ *  136:     function getDescription ()
+ *  147:     function _getCommand()
+ *
+ * TOTAL FUNCTIONS: 5
+ * (This index is automatically created/updated by the script "update-class-index")
+ *
  */
 
 
@@ -140,6 +150,7 @@ class tx_damactedittxt_editFile extends tx_dam_actionbase {
 
 		$script = $this->env['defaultCmdScript'];
 		$script .= '?CMD='.$this->cmd;
+		$script .= '&vC='.$GLOBALS['BE_USER']->veriCode();
 		$script .= '&file='.rawurlencode($filepath);
 		$script .= '&returnUrl='.rawurlencode($this->env['returnUrl']);
 
