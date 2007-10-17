@@ -1,5 +1,13 @@
-(add new changes on top of this file)
+07-03-11 Rene Fritz  <r.fritz@colorcube.de>
 
-06-07-27 René Fritz  <r.fritz@colorcube.de>
+	* Change: use 'template' doc class now to use full frame width and set texarea class
+
+07-02-23 Rene Fritz  <r.fritz@colorcube.de>
+
+	* Added: context menu entry
+	* Change: 'save' button will save only
+	* Added: 'save & close' button do what it tells
+
+06-07-27 Rene Fritz  <r.fritz@colorcube.de>
 
 	* Initial release

@@ -36,6 +36,17 @@ require_once(PATH_t3lib.'class.t3lib_extobjbase.php');
 class tx_damactedittxt_modfunc1 extends t3lib_extobjbase {
 
 
+
+	/**
+	 * Do some init things
+	 *
+	 * @return	void
+	 */
+	function cmdInit() {
+		$GLOBALS['SOBE']->templateClass = 'template';
+	}
+
+
 	/**
 	 * Additional access check
 	 *
@@ -53,6 +64,8 @@ class tx_damactedittxt_modfunc1 extends t3lib_extobjbase {
 	 */
 	function head() {
 		$GLOBALS['SOBE']->pageTitle = $GLOBALS['LANG']->getLL('tx_dam_cmd_fileedit.title');
+		
+		$GLOBALS['SOBE']->templateClass = 'template';
 	}
 
 
@@ -89,12 +102,12 @@ class tx_damactedittxt_modfunc1 extends t3lib_extobjbase {
 			if ($error) {
 				$content .= $GLOBALS['SOBE']->getMessageBox ($LANG->getLL('error'), htmlspecialchars($error), $this->pObj->buttonBack(0), 2);
 
-			} else {
+			} elseif (t3lib_div::_GP('save_close')) {
 				$this->pObj->redirect(true);
 			}
-
-
-		} elseif ($this->file['file_accessable']) {
+		}
+		
+		if ($this->file['file_accessable']) {
 			$content.= $this->renderForm(t3lib_div::getURL(tx_dam::file_absolutePath($this->file)));
 
 		} else {
@@ -123,13 +136,14 @@ class tx_damactedittxt_modfunc1 extends t3lib_extobjbase {
 		$msg[] = $GLOBALS['LANG']->sL('LLL:EXT:dam/locallang_db.xml:tx_dam_item.file_name',1).' <strong>'.htmlspecialchars($this->file['file_name']).'</strong>';
 		$msg[] = '&nbsp;';
 		$msg[] = $GLOBALS['LANG']->getLL('tx_dam_cmd_filenew.text_content',1);
-		$msg[] = '<textarea rows="15" name="data[file_content]" wrap="off"'.$this->pObj->doc->formWidthText(48,'width:99%;height:65%','off').'>'.
+		$msg[] = '<textarea rows="30" name="data[file_content]" wrap="off"'.$this->pObj->doc->formWidthText(48,'width:99%;height:65%','off').' class="fixed-font enable-tab">'.
 					t3lib_div::formatForTextarea($fileContent).
 					'</textarea>';
 
 
 		$buttons = '
-			<input type="submit" value="'.$GLOBALS['LANG']->getLL('labelCmdSave',1).'" />
+			<input type="submit" name="save" value="'.$GLOBALS['LANG']->getLL('labelCmdSave',1).'" />
+			<input type="submit" name="save_close" value="'.$GLOBALS['LANG']->getLL('labelCmdSaveClose',1).'" />
 			<input type="submit" value="'.$LANG->sL('LLL:EXT:lang/locallang_core.xml:labels.cancel',1).'" onclick="jumpBack(); return false;" />';
 
 

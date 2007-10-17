@@ -67,7 +67,7 @@ class tx_damactedittxt_editFile extends tx_dam_actionbase {
 	 * Defines the types that the object can render
 	 * @var array
 	 */
-	var $typesAvailable = array('icon', 'control');
+	var $typesAvailable = array('icon', 'control', 'context');
 
 
 	/**
@@ -101,7 +101,8 @@ class tx_damactedittxt_editFile extends tx_dam_actionbase {
 		$valid = $this->isTypeValid ($type, $itemInfo, $env);
 
 		if ($valid) {
-			$valid = ($this->itemInfo['__type'] == 'file' AND t3lib_div::inList($GLOBALS['TYPO3_CONF_VARS']['SYS']['textfile_ext'], $this->itemInfo['file_type']));
+			$type = $this->itemInfo['file_type'] ? $this->itemInfo['file_type'] : $this->itemInfo['file_extension'];
+			$valid = ($this->itemInfo['__type'] == 'file' AND t3lib_div::inList($GLOBALS['TYPO3_CONF_VARS']['SYS']['textfile_ext'], $type));
 		}
 
 		return $valid;
@@ -122,7 +123,7 @@ class tx_damactedittxt_editFile extends tx_dam_actionbase {
 		} else {
 			$iconFile = 'gfx/edit_file.gif';
 		}
-		$icon = '<img'.t3lib_iconWorks::skinImg($GLOBALS['BACK_PATH'], $iconFile, 'width="12" height="12"').$this->_cleanAttribute($addAttribute).' alt="" />';
+		$icon = '<img'.t3lib_iconWorks::skinImg($this->env['backPath'], $iconFile, 'width="12" height="12"').$this->_cleanAttribute($addAttribute).' alt="" />';
 
 		return $icon;
 	}
@@ -139,6 +140,16 @@ class tx_damactedittxt_editFile extends tx_dam_actionbase {
 
 
 	/**
+	 * Returns the short label like: Delete
+	 *
+	 * @return	string
+	 */
+	function getLabel () {
+		return $GLOBALS['LANG']->sL('LLL:EXT:dam/lib/locallang.xml:editFile');
+	}
+
+
+	/**
 	 * Returns a command array for the current type
 	 *
 	 * @return	array		Command array
@@ -146,15 +157,19 @@ class tx_damactedittxt_editFile extends tx_dam_actionbase {
 	 */
 	function _getCommand() {
 
-		$filepath = $this->itemInfo['file_path_absolute'].$this->itemInfo['file_name'];
+		$filepath = tx_dam::file_absolutePath($this->itemInfo);
 
 		$script = $this->env['defaultCmdScript'];
 		$script .= '?CMD='.$this->cmd;
 		$script .= '&vC='.$GLOBALS['BE_USER']->veriCode();
 		$script .= '&file='.rawurlencode($filepath);
-		$script .= '&returnUrl='.rawurlencode($this->env['returnUrl']);
 
-		$commands['href'] = $script;
+		if ($this->type === 'context') {
+			$commands['url'] = $script;
+		} else {
+			$script .= '&returnUrl='.rawurlencode($this->env['returnUrl']);
+			$commands['href'] = $script;
+		}
 
 		return $commands;
 	}
